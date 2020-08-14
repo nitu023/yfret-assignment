@@ -22,10 +22,10 @@ export default function Navbar() {
             <Link to="/" className="white-text h5">Home</Link>
           </MDBNavbarNav>
           <MDBNavbarNav right>
-          <Link to='/wishlist' className="white-text h5"><i class="fa fa-heart" aria-hidden="true" style={{color:"red"}}></i><span class="badge">{ids.length}</span></Link>
+          <Link to='/wishlist' className="white-text h5"><i class="fa fa-heart" aria-hidden="true" style={{color:"red"}}></i><span class="badge">{ids ? ids.length : null}</span></Link>
           </MDBNavbarNav>
           <MDBNavbarNav right style={{marginRight:"60px"}}>
-            <Link to='/cart' className="white-text h5"><i class="fa fa-shopping-cart" ></i><span class="badge">{ids1.length}</span></Link>
+            <Link to='/cart' className="white-text h5"><i class="fa fa-shopping-cart" ></i><span class="badge">{ids1 ? ids1.length : null}</span></Link>
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBNavbar>
