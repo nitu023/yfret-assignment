@@ -55,8 +55,7 @@ console.log(categories)
           else {
             arr.push(id)
             window.localStorage.setItem("wishIds", JSON.stringify(arr))
-      }  
-    }
+      } 
   }
 
 
