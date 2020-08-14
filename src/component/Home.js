@@ -47,23 +47,24 @@ console.log(categories)
     console.log(id)
     let arr = []
     let ids = JSON.parse(window.localStorage.getItem("wishIds"))
-    for(var i =0; i < ids.length; i++){
-      if (ids[i] === id){
-        alert("Already added to WishLish")
-      }
-      else{
-        if (ids) {
-          let finalIds = [...ids, id]
-          let uniqueIds = [...new Set(finalIds)]
-          window.localStorage.setItem("wishIds", JSON.stringify(uniqueIds))
+    if(ids) {
+      for(var i =0; i < ids.length; i++){
+        if (ids[i] === id){
+          alert("Already added to WishLish")
         }
-        else {
-          arr.push(id)
-          window.localStorage.setItem("wishIds", JSON.stringify(arr))
+        else{
+          if (ids) {
+            let finalIds = [...ids, id]
+            let uniqueIds = [...new Set(finalIds)]
+            window.localStorage.setItem("wishIds", JSON.stringify(uniqueIds))
+          }
+          else {
+            arr.push(id)
+            window.localStorage.setItem("wishIds", JSON.stringify(arr))
+          }
         }
-      }
+      }  
     }
-   
   }
 
 
@@ -87,13 +88,13 @@ console.log(categories)
           </MDBRow>
         </MDBContainer>
       </div>
-      <div style={{ marginLeft: "100px" }}>
+      <div style={{ marginLeft: "80px" }}>
         {allData ?
           allData.map(item => {
             if (item.avlble === 1) {
               return (
-                <div style={{ margin: "10px", float: "left", marginTop: "50px" }}>
-                  <MDBCol style={{ maxWidth: "25rem", maxHeight: "23rem", marginBottom: 250 }}>
+                <div style={{ margin: "10px", float: "left", marginTop: "10px" }}>
+                  <MDBCol style={{ maxWidth: "25rem", maxHeight: "23rem", marginBottom: 260 }}>
                     <MDBCard>
                       <MDBCardImage className="img-fluid" src={item.image}
                         waves />
