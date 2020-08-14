@@ -47,12 +47,6 @@ console.log(categories)
     console.log(id)
     let arr = []
     let ids = JSON.parse(window.localStorage.getItem("wishIds"))
-    if(ids) {
-      for(var i =0; i < ids.length; i++){
-        if (ids[i] === id){
-          alert("Already added to WishLish")
-        }
-        else{
           if (ids) {
             let finalIds = [...ids, id]
             let uniqueIds = [...new Set(finalIds)]
@@ -61,8 +55,6 @@ console.log(categories)
           else {
             arr.push(id)
             window.localStorage.setItem("wishIds", JSON.stringify(arr))
-          }
-        }
       }  
     }
   }
