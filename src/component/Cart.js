@@ -4,44 +4,43 @@ import data from '../component/csvjson.json'
 import Navbar from './Navbar';
 // import Footer from './Footer'
 
-export default function WishList() {
+export default function Cart() {
 
-    const [wishListData, setWishListData] = useState([])
+    const [cartData, setCartData] = useState([])
+    const [itemCount, setItemCount] = useState([])
 
     useEffect(() => {
-        let ids = JSON.parse(window.localStorage.getItem("wishIds"))
-        let wishItems = []
-        if (ids) {
-            for (let i = 0; i < ids.length; i++) {
-                console.log(ids[i]);
-                let filterdItems = data.filter(a => a._id === ids[i])[0]
-                wishItems.push(filterdItems)
-            }
-            setWishListData(wishItems)
-        }
-
-    }, [])
-
-    const handleCart = (id) => {
-        let arr = []
         let ids = JSON.parse(window.localStorage.getItem("cartIds"))
-        if (ids) {
-            let finalIds = [...ids, id]
-            window.localStorage.setItem("cartIds", JSON.stringify(finalIds))
-        }
-        else {
-            arr.push(id)
-            window.localStorage.setItem("cartIds", JSON.stringify(arr))
-        }
-    }
+        let uniqueIds = [...new Set(ids)]
+        let cartItems = []
+        let countItems = []
+        if(ids){
+            for(let i = 0; i<uniqueIds.length;i++){
+                console.log(uniqueIds[i]);
+                let filterdItems = data.filter(a=>a._id === uniqueIds[i])
+                cartItems.push(filterdItems[0])        
+            }
+            for(let i = 0; i<uniqueIds.length;i++){
+                let count = 0
+                for(let j = 0; j<ids.length;j++){             
+                    if(uniqueIds[i] === ids[j]){
+                        count += 1
+                    }
+                }
+                countItems.push(count)
+            }
+            setCartData(cartItems)
+            setItemCount(countItems)
+        }     
+    }, [])
 
     // console.log(wishListData)
 
     return (
         <div>
             <Navbar />
-            {wishListData ?
-                wishListData.map(item => {
+            {cartData && itemCount?
+                cartData.map((item,index) => {
                     if (item.avlble === 1) {
                         return (
                             <div style={{ margin: "15px", float: "left" }}>
@@ -53,7 +52,7 @@ export default function WishList() {
                                             <MDBCardTitle style={{ fontSize: "15px" }}>Name : {item.name}</MDBCardTitle>
                                             <MDBCardText>category : {item.category}</MDBCardText>
                                             <MDBCardText style={{ fontSize: "12px" }}>description : {item.description}</MDBCardText>
-                                            <MDBBtn color="green" style={{marginLeft:"20%"}} onClick={() => handleCart(item._id)}>Add To Cart</MDBBtn>
+                                            <MDBBtn color="red" style={{marginLeft:"20%"}}>No. of Items: {itemCount[index]}</MDBBtn>
                                         </MDBCardBody>
                                     </MDBCard>
                                 </MDBCol>
