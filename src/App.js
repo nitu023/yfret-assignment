@@ -1,6 +1,5 @@
 import React,{ lazy, Suspense} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Footer from '../src/component/Footer'
 
 const Home = lazy(() => import('./component/Home'));
 const Wishlist = lazy(() => import('./component/WishList'));
@@ -19,9 +18,6 @@ function App() {
           </Switch>
         </Suspense>     
       </BrowserRouter>
-      <div style={{bottom:0, position:"fixed" , width:"100%"}}>
-        <Footer />
-      </div>
     </div>
   );
 }
