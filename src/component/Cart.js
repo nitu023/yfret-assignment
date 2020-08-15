@@ -61,7 +61,7 @@ export default function Cart() {
                     }
                     else{
                         return(
-                            null
+                            <div> No data Added to cart </div>
                         )
                     }
                 }) : <div> No data Added to cart </div>

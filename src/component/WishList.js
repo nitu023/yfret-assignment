@@ -62,7 +62,7 @@ export default function WishList() {
                     }
                     else{
                         return(
-                            null
+                            <div> No Data Added to WishList </div>
                         )
                     }
                 }) : <div> No Data Added to WishList </div>
