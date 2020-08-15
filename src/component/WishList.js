@@ -65,7 +65,7 @@ export default function WishList() {
                             null
                         )
                     }
-                }) : null
+                }) : <div> No Data Added to WishList </div>
             }
         </div>
     )

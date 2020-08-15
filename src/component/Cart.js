@@ -64,7 +64,7 @@ export default function Cart() {
                             null
                         )
                     }
-                }) : null
+                }) : <div> No data Added to cart </div>
             }
         </div>
     )
