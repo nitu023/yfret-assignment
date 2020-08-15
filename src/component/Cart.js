@@ -34,8 +34,6 @@ export default function Cart() {
         }     
     }, [])
 
-    // console.log(wishListData)
-
     return (
         <div>
             <Navbar />
