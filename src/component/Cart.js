@@ -39,7 +39,7 @@ export default function Cart() {
     return (
         <div>
             <Navbar />
-            {cartData && itemCount?
+            {cartData.length > 0 && itemCount.length > 0?
                 cartData.map((item,index) => {
                     if (item.avlble === 1) {
                         return (
@@ -61,10 +61,10 @@ export default function Cart() {
                     }
                     else{
                         return(
-                            <div> No data Added to cart </div>
+                           null
                         )
                     }
-                }) : <div> No data Added to cart </div>
+                }) : <h1 style={{textAlign:"center", marginTop:"100px"}}> No Items Added to cart </h1>
             }
         </div>
     )

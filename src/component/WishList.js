@@ -40,7 +40,7 @@ export default function WishList() {
     return (
         <div>
             <Navbar />
-            {wishListData ?
+            {wishListData.length > 0 ?
                 wishListData.map(item => {
                     if (item.avlble === 1) {
                         return (
@@ -62,10 +62,11 @@ export default function WishList() {
                     }
                     else{
                         return(
-                            <div> No Data Added to WishList </div>
+                            null
                         )
                     }
-                }) : <div> No Data Added to WishList </div>
+                }) : 
+                <h1 style={{textAlign:"center", marginTop:"100px"}}> No Items Added to WishList </h1>
             }
         </div>
     )
