@@ -13,6 +13,7 @@ export default function MediaCard() {
   const [pageNumber, setPageNumber] = useState(1)
   const [totalPageNumber, setTotalPageNumber] = useState(null)
   const [avbleData, setAvblData] = useState()
+  const [isPage, setIspage] = useState(false)
 
   useEffect(() => {
     setAvblData(data.filter((i) => i.avlble === 1))
@@ -23,7 +24,8 @@ export default function MediaCard() {
     setCategories(uniqueCat)
   }, [])
 console.log(totalPageNumber)
-  useEffect(()=>{
+  useEffect(()=> {
+    setIspage(false)
      let initial = Number(pageNumber-1) * 15
      let final = Number(pageNumber)*15
      setAllData(avbleData ? avbleData.slice(initial, final) : null)
@@ -33,10 +35,14 @@ console.log(totalPageNumber)
 console.log(allData)
   const handleChange = (e) => {
     setSearch(e)
+    let initial = Number(pageNumber-1) * 15
+    let final = Number(pageNumber)*15
     if(e.value === "all"){
-      setAllData(data)
+      setIspage(false)
+      setAllData(avbleData ? avbleData.slice(initial, final) : null)
     }
     else{
+      setIspage(true)
       setAllData(data.filter(a => a.category === e.value))
     }
   }
@@ -133,91 +139,99 @@ console.log(allData)
         }
       </div>
       <div style={{marginTop:"1500px"}}>
-      <MDBRow>
-      <MDBCol>
-        <MDBPagination circle>
-        <MDBPageItem>
-            {
-              pageNumber <= totalPageNumber && pageNumber >= totalPageNumber-2 ?
-              <MDBPageNav className="page-link" disabled >
-              First
-            </MDBPageNav> : 
-             <MDBPageNav className="page-link" onClick={() => handlePagination(1)} >
-             First
-           </MDBPageNav>
-            }
-        
-          </MDBPageItem>
-          <MDBPageItem>
-            {
-                 pageNumber <= 1 ?
-                 <MDBPageNav className="page-link" aria-label="Previous" disabled>
-                    <span aria-hidden="true">&laquo;</span>
-                    <span className="sr-only">Previous</span>
+        {
+          !isPage ? 
+          <MDBRow>
+          <MDBCol>
+            <MDBPagination circle>
+            <MDBPageItem>
+                {
+                  pageNumber <= totalPageNumber && pageNumber >= totalPageNumber-2 ?
+                  <MDBPageNav className="page-link" disabled >
+                  First
+                </MDBPageNav> : 
+                 <MDBPageNav className="page-link" onClick={() => handlePagination(1)} >
+                 First
                </MDBPageNav>
-               :
-               <MDBPageNav className="page-link" aria-label="Previous" onClick={() => handlePagination(pageNumber-1)}>
-                <span aria-hidden="true" >&laquo;</span>
-                <span className="sr-only" >Previous</span>
-              </MDBPageNav>
-            }     
-          </MDBPageItem>
-          <MDBPageItem active>
-            <MDBPageNav className="page-link" onClick={() => handlePagination(pageNumber)}>
-              {pageNumber} <span className="sr-only">(current)</span>
-            </MDBPageNav>
-          </MDBPageItem>
-          <MDBPageItem >
-          {
-            pageNumber <= totalPageNumber -1 ? 
-
-            <MDBPageNav className="page-link" onClick={() => handlePagination(pageNumber+1)}>
-              {pageNumber+1} <span className="sr-only">(current)</span>
-            </MDBPageNav> :
-            null
-          }
-         
-          </MDBPageItem>
-          <MDBPageItem >
-            {
-              pageNumber <= totalPageNumber -2 ?
-              <MDBPageNav className="page-link" onClick={() => handlePagination(pageNumber+2)}>
-              {pageNumber+2} <span className="sr-only">(current)</span>
-            </MDBPageNav> : null
-
-            }
+                }
             
-          </MDBPageItem>
-          <MDBPageItem>
-            {
-              pageNumber >= totalPageNumber ? 
-              <MDBPageNav className="page-link"  disabled>
-              &raquo;
-            </MDBPageNav> :
-             <MDBPageNav className="page-link"  onClick={() => handlePagination(pageNumber +1)}>
-             &raquo;
-           </MDBPageNav>
-            }
-          </MDBPageItem>
-          <MDBPageItem>
-            {
-              pageNumber <= totalPageNumber && pageNumber >= totalPageNumber-2 ?
-              <MDBPageNav className="page-link" disabled >
-              Last
-            </MDBPageNav> : 
-             <MDBPageNav className="page-link" onClick={() => handlePagination(totalPageNumber-2)} >
-             Last
-           </MDBPageNav>
-            }
-        
-          </MDBPageItem>
-        </MDBPagination>
-      </MDBCol>
-    </MDBRow>
+              </MDBPageItem>
+              <MDBPageItem>
+                {
+                     pageNumber <= 1 ?
+                     <MDBPageNav className="page-link" aria-label="Previous" disabled>
+                        <span aria-hidden="true">&laquo;</span>
+                        <span className="sr-only">Previous</span>
+                   </MDBPageNav>
+                   :
+                   <MDBPageNav className="page-link" aria-label="Previous" onClick={() => handlePagination(pageNumber-1)}>
+                    <span aria-hidden="true" >&laquo;</span>
+                    <span className="sr-only" >Previous</span>
+                  </MDBPageNav>
+                }     
+              </MDBPageItem>
+              <MDBPageItem active>
+                <MDBPageNav className="page-link" onClick={() => handlePagination(pageNumber)}>
+                  {pageNumber} <span className="sr-only">(current)</span>
+                </MDBPageNav>
+              </MDBPageItem>
+              <MDBPageItem >
+              {
+                pageNumber <= totalPageNumber -1 ? 
+    
+                <MDBPageNav className="page-link" onClick={() => handlePagination(pageNumber+1)}>
+                  {pageNumber+1} <span className="sr-only">(current)</span>
+                </MDBPageNav> :
+                null
+              }
+             
+              </MDBPageItem>
+              <MDBPageItem >
+                {
+                  pageNumber <= totalPageNumber -2 ?
+                  <MDBPageNav className="page-link" onClick={() => handlePagination(pageNumber+2)}>
+                  {pageNumber+2} <span className="sr-only">(current)</span>
+                </MDBPageNav> : null
+    
+                }
+                
+              </MDBPageItem>
+              <MDBPageItem>
+                {
+                  pageNumber >= totalPageNumber ? 
+                  <MDBPageNav className="page-link"  disabled>
+                  &raquo;
+                </MDBPageNav> :
+                 <MDBPageNav className="page-link"  onClick={() => handlePagination(pageNumber +1)}>
+                 &raquo;
+               </MDBPageNav>
+                }
+              </MDBPageItem>
+              <MDBPageItem>
+                {
+                  pageNumber <= totalPageNumber && pageNumber >= totalPageNumber-2 ?
+                  <MDBPageNav className="page-link" disabled >
+                  Last
+                </MDBPageNav> : 
+                 <MDBPageNav className="page-link" onClick={() => handlePagination(totalPageNumber-2)} >
+                 Last
+               </MDBPageNav>
+                }
+            
+              </MDBPageItem>
+            </MDBPagination>
+          </MDBCol>
+        </MDBRow> : null
+
+        }
     </div>
-    <div style={{marginTop:"100px"}}>
-        <Footer />
-      </div>
+    {
+      !isPage ? 
+      <div style={{marginTop:"100px"}}>
+      <Footer />
+    </div> : null
+    }
+   
     </div>
   );
 }
